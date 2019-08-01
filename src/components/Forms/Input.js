@@ -1,11 +1,12 @@
 import React from 'react';
 
 const Input = props => {
-    const { name, label, maxLength } = props;
+    const { name, label, value, handleChange } = props;
+
     return (
         <div>
-            <label for={name}>{label}</label>
-            <input type='text' className='input' name={name} maxLength={1} />
+            <label htmlFor={name}>{label}</label>
+            <input type='text' className='input' name={name} value={value} onChange={e => handleChange(e.target.value)} />
         </div>
     );
 }

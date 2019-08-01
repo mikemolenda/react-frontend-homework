@@ -1,14 +1,16 @@
 import React from 'react';
 
 const Select = props => {
-    const { name, label } = props;
+    const { name, label, options, handleChange, selected } = props;
     return (
         <div>
-            <label for={name}>{label}</label>
-            <select name={name} className="select">
-                <option value="">Recommended</option>
-                <option value="">Price low-to-high</option>
-                <option value="">Price high-to-low</option>
+            <label htmlFor={name}>{label}</label>
+            <select name={name} className="select" onChange={e => handleChange(e.target.value)} value={selected}>
+                {options &&
+                    options.map((option, index) => (
+                        <option key={index} value={option.value}>{option.name}</option>)
+                    )
+                }
             </select >
         </div>
     );
