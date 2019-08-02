@@ -9,6 +9,7 @@ const App = () => {
     const [hotels, setHotels] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [sortFn, setSortFn] = useState(() => (a, b) => 0);
+    const [error, setError] = useState();
 
     const filterByName = value => {
         setFiltered(hotels.filter(hotel => hotel.hotelStaticContent.name.toLowerCase().includes(value.toLowerCase())));
@@ -41,7 +42,7 @@ const App = () => {
                 setHotels(response.results.hotels)
             })
             .catch(error => {
-                console.error(error)
+                setError('An error occurred while retrieving the data. Please try again.')
             })
     }, []);
 
@@ -49,7 +50,7 @@ const App = () => {
         <div className="app-container">
             <div className="content">
                 <Filters filterByName={filterByName} sortBy={sortBy} resetFilters={resetFilters} />
-                <HotelList hotels={filtered.length > 0 && filtered.sort(sortFn) || [...hotels].sort(sortFn)} />
+                <HotelList hotels={filtered.length > 0 && filtered.sort(sortFn) || [...hotels].sort(sortFn)} error={error} />
             </div>
         </div>
     )

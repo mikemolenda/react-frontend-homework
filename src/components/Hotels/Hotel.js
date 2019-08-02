@@ -3,18 +3,22 @@ import { Button } from '../Forms';
 
 const Hotel = props => {
     const hotel = props.data;
+    const image = hotel.hotelStaticContent && hotel.hotelStaticContent.mainImage && hotel.hotelStaticContent.mainImage.url;
+    const name = hotel.hotelStaticContent && hotel.hotelStaticContent.name;
+    const location = hotel.hotelStaticContent && hotel.hotelStaticContent.neighborhoodName;
+
     return (
+        hotel && hotel.lowestAveragePrice && hotel.rewards &&
         <div className="hotel-card" key={hotel.id}>
-            <div
-                className="image"
-                style={{ backgroundImage: `url(${hotel.hotelStaticContent.mainImage.url})` }}>
+            <div className="image" style={{ backgroundImage: `url(${image || ''})`, backgroundColor: 'gray' }}>
+                {!image && 'No image available'}
             </div>
             <div className="hotel-details">
                 <div className="hotel-name">
-                    {hotel.hotelStaticContent.name}
+                    {name || 'Name Unavailable'}
                 </div>
                 <div className="location">
-                    {hotel.hotelStaticContent.neighborhoodName}
+                    {location || 'Location Unavailable'}
                 </div>
             </div>
             <div className="price-details">
@@ -24,7 +28,7 @@ const Hotel = props => {
                 </span>
                 <span className="rewards">
                     {hotel.rewards.miles} miles
-                </span>
+                    </span>
                 <Button label='Select' />
             </div>
         </div>
